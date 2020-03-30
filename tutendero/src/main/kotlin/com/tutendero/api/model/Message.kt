@@ -6,5 +6,6 @@ data class Message (
     var from: String? = null,
     var to: String? = null,
     var date: Date? = null,
-    var message: String? = null
+    var message: String? = null,
+    val creationDate: Date = Date()
 )

@@ -4,6 +4,7 @@ import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
+import java.util.*
 
 @Document
 class Conversation {
@@ -17,4 +18,6 @@ class Conversation {
     var messages: List<Message>? = null
     val key: String
         get() = id.toString()
+    val creationDate: Date = Date()
+    var updateDate: Date? = null
 }
