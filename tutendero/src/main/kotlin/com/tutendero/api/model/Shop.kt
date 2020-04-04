@@ -5,20 +5,20 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
-import javax.validation.constraints.NotBlank
+import java.util.*
+import javax.validation.constraints.Size
 
 @Document
-class Shop {
+class Shop(var name: String, var phone: String, @field:Size(min = 1) var categories: List<String>) {
     @Id
     @Field("_id")
     var id: ObjectId? = null
-    var name: @NotBlank(message = "name is required") String? = null
-    var phone: @NotBlank(message = "phone is required") String? = null
-    var siteUrl: String? = null
     var photoUrl: String? = null
     var location: GeoJsonPoint? = null
     var demographics: Demographic? = null
-    var categories: List<String>? = null
+    var workingHours: List<WorkingHour>? = null
     val key: String
         get() = id.toString()
+    val creationDate: Date = Date()
+    var updateDate: Date? = null
 }
