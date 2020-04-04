@@ -14,18 +14,20 @@ import javax.validation.Valid
 class UserRestController(
         private val userRepository: UserRepository
 ) {
-    @GetMapping("/{id}")
-    fun getUser(@PathVariable id: String?): ResponseEntity<User> {
-        if (id == null) {
+    @GetMapping("/{ids}")
+    @CrossOrigin
+    fun getUser(@PathVariable ids: String?): ResponseEntity<User> {
+        if (ids == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        val ou: Optional<User> = userRepository.findById(ObjectId(id))
+        val ou: Optional<User> = userRepository.findById(ObjectId(ids))
         return if (ou.isPresent) {
             ResponseEntity(ou.get(), HttpStatus.OK)
         } else ResponseEntity(HttpStatus.OK)
     }
 
     @PostMapping
+    @CrossOrigin
     fun createUser(@RequestBody user: @Valid User): ResponseEntity<User> {
         if (user.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -35,6 +37,7 @@ class UserRestController(
     }
 
     @PutMapping
+    @CrossOrigin
     fun updateUser(@RequestBody user: @Valid User): ResponseEntity<User> {
         if (user.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
