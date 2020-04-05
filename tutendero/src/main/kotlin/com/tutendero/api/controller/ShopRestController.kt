@@ -1,26 +1,26 @@
 package com.tutendero.api.controller
 
 import com.tutendero.api.model.Shop
-import com.tutendero.api.repository.ShopRepository
-import org.bson.types.ObjectId
+import com.tutendero.api.service.ShopService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
 import javax.validation.Valid
 
 @RestController
 @RequestMapping("/shop")
-class ShopRestController(private val shopRepository: ShopRepository) {
+class ShopRestController(
+        private val shopService: ShopService
+) {
 
     @GetMapping("/{id}")
     fun getShop(@PathVariable id: String?): ResponseEntity<Shop> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        val ot: Optional<Shop> = shopRepository.findById(ObjectId(id))
-        return if (ot.isPresent) {
-            ResponseEntity(ot.get(), HttpStatus.OK)
+        val shop: Shop? = shopService.findById(id)
+        return if (shop != null) {
+            ResponseEntity(shop, HttpStatus.OK)
         } else ResponseEntity(HttpStatus.OK)
     }
 
@@ -29,16 +29,25 @@ class ShopRestController(private val shopRepository: ShopRepository) {
         if (shop.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        val savedShop: Shop = shopRepository.save(shop)
+        val savedShop: Shop? = shopService.create(shop)
         return ResponseEntity(savedShop, HttpStatus.OK)
     }
 
     @PutMapping
-    fun updateCustomer(@RequestBody shop: @Valid Shop): ResponseEntity<Shop> {
+    fun updateShop(@RequestBody shop: @Valid Shop): ResponseEntity<Shop> {
         if (shop.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        val savedShop: Shop = shopRepository.save(shop)
+        val savedShop: Shop? = shopService.update(shop)
         return ResponseEntity(savedShop, HttpStatus.OK)
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteShop(@PathVariable id: String?): ResponseEntity<Shop> {
+        if (id == null) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+        shopService.delete(id)
+        return ResponseEntity(HttpStatus.OK)
     }
 }

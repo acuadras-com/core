@@ -1,6 +1,6 @@
 package com.tutendero.api.repository
 
-import com.tutendero.api.model.Shop
+import com.tutendero.api.model.User
 import org.springframework.data.mongodb.repository.MongoRepository
 
-interface ShopRepository: MongoRepository<Shop, String>
+interface UserRepository: MongoRepository<User, String>

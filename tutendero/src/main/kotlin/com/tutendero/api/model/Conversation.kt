@@ -1,20 +1,24 @@
 package com.tutendero.api.model
 
-import org.bson.types.ObjectId
+import com.tutendero.api.model.interfaces.AuditableEntity
+import com.tutendero.api.model.interfaces.DisableableEntity
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
+import java.util.*
 
 @Document
-class Conversation {
+class Conversation(
+        @Field("customer_id")
+        var customerId: String,
+        @Field("shop_id")
+        var shopId: String,
+        var messages: List<Message>
+) : DisableableEntity, AuditableEntity {
     @Id
-    @Field("_id")
-    var id: ObjectId? = null
-    @Field("customer_id")
-    var customerId: String? = null
-    @Field("shop_id")
-    var shopId: String? = null
-    var messages: List<Message>? = null
-    val key: String
-        get() = id.toString()
+    var id: String? = null
+
+    override var disabled = false
+    override var createdDate: Date = Date()
+    override var updatedDate: Date? = null
 }
