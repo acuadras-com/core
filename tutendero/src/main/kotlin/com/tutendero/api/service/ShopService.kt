@@ -7,4 +7,6 @@ interface ShopService {
     fun update(shop: Shop): Shop?
     fun delete(id: String)
     fun findById(id: String): Shop?
+    fun findAll(): List<Shop?>
+    fun findByCategoriesIn(categories : List<String>): List<Shop?>
 }

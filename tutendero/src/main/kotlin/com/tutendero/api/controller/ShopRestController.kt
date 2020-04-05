@@ -50,4 +50,16 @@ class ShopRestController(
         shopService.delete(id)
         return ResponseEntity(HttpStatus.OK)
     }
+
+    @GetMapping()
+    fun getShops(): ResponseEntity<List<Shop?>> {
+        val shops: List<Shop?> = shopService.findAll()
+        return ResponseEntity(shops, HttpStatus.OK)
+    }
+
+    @GetMapping("/categories")
+    fun getShopsByCategories(@RequestBody categories: DataList): ResponseEntity<List<Shop?>> {
+        val shops: List<Shop?> = shopService.findByCategoriesIn(categories.values)
+        return ResponseEntity(shops, HttpStatus.OK)
+    }
 }
