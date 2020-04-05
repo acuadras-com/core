@@ -1,29 +1,27 @@
 package com.tutendero.api.controller
 
 import com.tutendero.api.model.Customer
-import com.tutendero.api.repository.CustomerRepository
-import org.bson.types.ObjectId
+import com.tutendero.api.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
-import java.util.*
 import javax.validation.Valid
 
 @RestController
 @RequestMapping("/customer")
 class CustomerRestController(
-        private val customerRepository: CustomerRepository
+        private val customerService: CustomerService
 ) {
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: String?): ResponseEntity<Customer> {
+    fun getCustomer(@PathVariable id: String): ResponseEntity<Customer> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        val ot: Optional<Customer> = customerRepository.findById(ObjectId(id))
-        return if (ot.isPresent) {
-            ResponseEntity(ot.get(), HttpStatus.OK)
+        val customer: Customer? = customerService.findById(id)
+        return if (customer != null) {
+            ResponseEntity(customer, HttpStatus.OK)
         } else ResponseEntity(HttpStatus.OK)
     }
 
@@ -32,7 +30,7 @@ class CustomerRestController(
         if (customer.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        val savedCustomer: Customer = customerRepository.save(customer)
+        val savedCustomer: Customer? = customerService.create(customer)
         return ResponseEntity(savedCustomer, HttpStatus.OK)
     }
 
@@ -42,7 +40,16 @@ class CustomerRestController(
             throw ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Foo Not Found")
         }
-        val savedCustomer: Customer = customerRepository.save(customer)
+        val savedCustomer: Customer? = customerService.create(customer)
         return ResponseEntity(savedCustomer, HttpStatus.OK)
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteCustomer(@PathVariable id: String?): ResponseEntity<Customer> {
+        if (id == null) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+        customerService.delete(id)
+        return ResponseEntity(HttpStatus.OK)
     }
 }
