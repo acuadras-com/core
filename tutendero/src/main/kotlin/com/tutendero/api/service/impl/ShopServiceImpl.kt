@@ -3,7 +3,6 @@ package com.tutendero.api.service.impl
 import com.tutendero.api.model.Shop
 import com.tutendero.api.repository.ShopRepository
 import com.tutendero.api.service.ShopService
-import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -37,6 +36,14 @@ class ShopServiceImpl(private val shopRepository: ShopRepository) : ShopService 
     override fun findById(id: String): Shop? {
         val os = shopRepository.findById(id)
         return os.orElse(null)
+    }
+
+    override fun findAll(): List<Shop?> {
+        return shopRepository.findAll()
+    }
+
+    override fun findByCategoriesIn(categories: List<String>): List<Shop?> {
+        return shopRepository.findByCategoriesIn(categories)
     }
 
 }
