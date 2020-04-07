@@ -11,7 +11,8 @@ class User(
         var type: String,
         var username: String,
         var password: String,
-        var roles: List<String>
+        var roles: List<String>,
+        var relationships: List<String>
 ) : DisableableEntity, AuditableEntity {
     @Id
     var id: String? = null
