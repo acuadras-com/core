@@ -3,6 +3,8 @@ package com.tutendero.api.service.impl
 import com.tutendero.api.model.Shop
 import com.tutendero.api.repository.ShopRepository
 import com.tutendero.api.service.ShopService
+import org.springframework.data.geo.Distance
+import org.springframework.data.geo.Point
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -44,6 +46,15 @@ class ShopServiceImpl(private val shopRepository: ShopRepository) : ShopService 
 
     override fun findByCategoriesIn(categories: List<String>): List<Shop?> {
         return shopRepository.findByCategoriesIn(categories)
+    }
+
+
+    override fun findByLocationNear(point: Point, distance: Distance): List<Shop?> {
+        return shopRepository.findByLocationNear(point, distance)
+    }
+
+    override fun findByLocationNearAndCategoriesIn(point: Point, distance: Distance, categories: List<String>): List<Shop?> {
+        return shopRepository.findByLocationNearAndCategoriesIn(point, distance, categories)
     }
 
 }
