@@ -19,6 +19,8 @@ class User(
     var customerId: String? = null
     @Field("shops_ids")
     var shopsIds: List<String?> = mutableListOf<String>()
+    var acceptedTermsAndConditionsAt: Date? = null
+    var termsAndConditionsVersion: String? = null
 
     override var disabled = false
     override var createdDate: Date = Date()
