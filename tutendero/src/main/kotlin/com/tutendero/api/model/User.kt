@@ -9,6 +9,8 @@ import java.util.*
 
 @Document
 class User(
+        var name: String,
+        var phone: String,
         var username: String,
         var password: String,
         var roles: List<String>
