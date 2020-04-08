@@ -14,6 +14,7 @@ import javax.validation.Valid
 class ShopRestController(private val shopRepository: ShopRepository) {
 
     @GetMapping("/{id}")
+    @CrossOrigin
     fun getShop(@PathVariable id: String?): ResponseEntity<Shop> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -25,6 +26,7 @@ class ShopRestController(private val shopRepository: ShopRepository) {
     }
 
     @PostMapping
+    @CrossOrigin
     fun createShop(@RequestBody shop: @Valid Shop): ResponseEntity<Shop> {
         if (shop.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -34,6 +36,7 @@ class ShopRestController(private val shopRepository: ShopRepository) {
     }
 
     @PutMapping
+    @CrossOrigin
     fun updateCustomer(@RequestBody shop: @Valid Shop): ResponseEntity<Shop> {
         if (shop.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)

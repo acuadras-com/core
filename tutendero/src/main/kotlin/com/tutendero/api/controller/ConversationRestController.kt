@@ -15,6 +15,7 @@ class ConversationRestController(
         private val conversationRepository: ConversationRepository
 ) {
     @GetMapping("/{id}")
+    @CrossOrigin
     fun getShop(@PathVariable id: String?): ResponseEntity<Conversation> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -26,6 +27,7 @@ class ConversationRestController(
     }
 
     @PostMapping
+    @CrossOrigin
     fun createConversation(@RequestBody conversation: @Valid Conversation): ResponseEntity<Conversation> {
         if (conversation.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -35,6 +37,7 @@ class ConversationRestController(
     }
 
     @PutMapping
+    @CrossOrigin
     fun updateCustomer(@RequestBody conversation: @Valid Conversation): ResponseEntity<Conversation> {
         if (conversation.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)

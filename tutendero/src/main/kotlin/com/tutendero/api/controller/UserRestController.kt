@@ -14,16 +14,23 @@ import javax.validation.Valid
 class UserRestController(
         private val userRepository: UserRepository
 ) {
-    @GetMapping("/{ids}")
+    @GetMapping("/{idr}")
     @CrossOrigin
-    fun getUser(@PathVariable ids: String?): ResponseEntity<User> {
-        if (ids == null) {
+    fun getUser(@PathVariable idr: String?): ResponseEntity<User> {
+        if (idr == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        val ou: Optional<User> = userRepository.findById(ObjectId(ids))
+        val ou: Optional<User> = userRepository.findById(ObjectId(idr))
         return if (ou.isPresent) {
             ResponseEntity(ou.get(), HttpStatus.OK)
         } else ResponseEntity(HttpStatus.OK)
+    }
+
+    @GetMapping("/")
+    @CrossOrigin
+    fun getUsers(): ResponseEntity<List<User>> {
+        val ou: List<User> = userRepository.findAll()
+        return ResponseEntity(ou, HttpStatus.OK)
     }
 
     @PostMapping
