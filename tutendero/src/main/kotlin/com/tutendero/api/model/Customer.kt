@@ -9,8 +9,6 @@ import java.util.*
 
 @Document
 class Customer(
-        var name: String,
-        var phone: String,
         var demographics: Demographic
 ) : DisableableEntity, AuditableEntity {
     @Id
