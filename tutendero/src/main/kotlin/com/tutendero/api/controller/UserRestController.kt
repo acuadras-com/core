@@ -14,6 +14,7 @@ class UserRestController(
 ) {
 
     @GetMapping("/{id}")
+    @CrossOrigin
     fun getUser(@PathVariable id: String?): ResponseEntity<User> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -25,6 +26,7 @@ class UserRestController(
     }
 
     @PostMapping
+    @CrossOrigin
     fun createUser(@RequestBody user: @Valid User): ResponseEntity<User> {
         if (user.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -34,6 +36,7 @@ class UserRestController(
     }
 
     @PutMapping
+    @CrossOrigin
     fun updateUser(@RequestBody user: @Valid User): ResponseEntity<User> {
         if (user.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -43,6 +46,7 @@ class UserRestController(
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin
     fun deleteUser(@PathVariable id: String?): ResponseEntity<User> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)

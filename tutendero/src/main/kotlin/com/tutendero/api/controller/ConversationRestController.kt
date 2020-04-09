@@ -13,6 +13,7 @@ class ConversationRestController(
         private val conversationService: ConversationService
 ) {
     @GetMapping("/{id}")
+    @CrossOrigin
     fun getConversation(@PathVariable id: String?): ResponseEntity<Conversation> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -24,6 +25,7 @@ class ConversationRestController(
     }
 
     @PostMapping
+    @CrossOrigin
     fun createConversation(@RequestBody conversation: @Valid Conversation): ResponseEntity<Conversation> {
         if (conversation.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -33,6 +35,7 @@ class ConversationRestController(
     }
 
     @PutMapping
+    @CrossOrigin
     fun updateConversation(@RequestBody conversation: @Valid Conversation): ResponseEntity<Conversation> {
         if (conversation.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -42,6 +45,7 @@ class ConversationRestController(
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin
     fun deleteConversation(@PathVariable id: String?): ResponseEntity<Conversation> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
