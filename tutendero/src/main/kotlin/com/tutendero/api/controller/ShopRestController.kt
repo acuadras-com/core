@@ -19,6 +19,7 @@ class ShopRestController(
 ) {
 
     @GetMapping("/{id}")
+    @CrossOrigin
     fun getShop(@PathVariable id: String?): ResponseEntity<Shop> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -30,6 +31,7 @@ class ShopRestController(
     }
 
     @PostMapping
+    @CrossOrigin
     fun createShop(@RequestBody shop: @Valid Shop): ResponseEntity<Shop> {
         if (shop.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -39,6 +41,7 @@ class ShopRestController(
     }
 
     @PutMapping
+    @CrossOrigin
     fun updateShop(@RequestBody shop: @Valid Shop): ResponseEntity<Shop> {
         if (shop.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -48,6 +51,7 @@ class ShopRestController(
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin
     fun deleteShop(@PathVariable id: String?): ResponseEntity<Shop> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -57,24 +61,28 @@ class ShopRestController(
     }
 
     @GetMapping()
+    @CrossOrigin
     fun getShops(): ResponseEntity<List<Shop?>> {
         val shops: List<Shop?> = shopService.findAll()
         return ResponseEntity(shops, HttpStatus.OK)
     }
 
     @GetMapping("/categories")
+    @CrossOrigin
     fun getShopsByCategories(@RequestBody categories: ListData): ResponseEntity<List<Shop?>> {
         val shops: List<Shop?> = shopService.findByCategoriesIn(categories.values)
         return ResponseEntity(shops, HttpStatus.OK)
     }
 
     @GetMapping("/geo/near/{radius}")
+    @CrossOrigin
     fun getShopsByLocationNear(@RequestBody point: Point, @PathVariable radius: Int): ResponseEntity<List<Shop?>> {
         val shops: List<Shop?> = shopService.findByLocationNear(point, Distance(radius.toDouble(), Metrics.KILOMETERS))
         return ResponseEntity(shops, HttpStatus.OK)
     }
 
     @GetMapping("/geo/near/{radius}/categories")
+    @CrossOrigin
     fun getShopsByCategoriesGeo(@RequestBody request: GeoNearPointAndCategoriesRequest, @PathVariable radius: Int): ResponseEntity<List<Shop?>> {
         val shops: List<Shop?> = shopService.findByLocationNearAndCategoriesIn(request.point, Distance(radius.toDouble(), Metrics.KILOMETERS), request.categories)
         return ResponseEntity(shops, HttpStatus.OK)

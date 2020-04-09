@@ -15,6 +15,7 @@ class CustomerRestController(
 ) {
 
     @GetMapping("/{id}")
+    @CrossOrigin
     fun getCustomer(@PathVariable id: String): ResponseEntity<Customer> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -26,6 +27,7 @@ class CustomerRestController(
     }
 
     @PostMapping
+    @CrossOrigin
     fun createCustomer(@RequestBody customer: @Valid Customer): ResponseEntity<Customer> {
         if (customer.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -35,6 +37,7 @@ class CustomerRestController(
     }
 
     @PutMapping
+    @CrossOrigin
     fun updateCustomer(@RequestBody customer: @Valid Customer): ResponseEntity<Customer> {
         if (customer.id == null) {
             throw ResponseStatusException(
@@ -45,6 +48,7 @@ class CustomerRestController(
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin
     fun deleteCustomer(@PathVariable id: String?): ResponseEntity<Customer> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
