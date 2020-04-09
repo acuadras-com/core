@@ -14,7 +14,7 @@ class UserRestController(
 ) {
 
     @GetMapping("/{id}")
-    fun getShop(@PathVariable id: String?): ResponseEntity<User> {
+    fun getUser(@PathVariable id: String?): ResponseEntity<User> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
@@ -25,25 +25,25 @@ class UserRestController(
     }
 
     @PostMapping
-    fun createShop(@RequestBody shop: @Valid User): ResponseEntity<User> {
-        if (shop.id != null) {
+    fun createUser(@RequestBody user: @Valid User): ResponseEntity<User> {
+        if (user.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        val savedShop: User? = userService.create(shop)
-        return ResponseEntity(savedShop, HttpStatus.OK)
+        val savedUser: User? = userService.create(user)
+        return ResponseEntity(savedUser, HttpStatus.OK)
     }
 
     @PutMapping
-    fun updateShop(@RequestBody shop: @Valid User): ResponseEntity<User> {
-        if (shop.id == null) {
+    fun updateUser(@RequestBody user: @Valid User): ResponseEntity<User> {
+        if (user.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        val savedShop: User? = userService.update(shop)
-        return ResponseEntity(savedShop, HttpStatus.OK)
+        val savedUser: User? = userService.update(user)
+        return ResponseEntity(savedUser, HttpStatus.OK)
     }
 
     @DeleteMapping("/{id}")
-    fun deleteShop(@PathVariable id: String?): ResponseEntity<User> {
+    fun deleteUser(@PathVariable id: String?): ResponseEntity<User> {
         if (id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
