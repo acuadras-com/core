@@ -16,9 +16,6 @@ class CustomerRestController(
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: String): ResponseEntity<Customer> {
-        if (id == null) {
-            return ResponseEntity(HttpStatus.BAD_REQUEST)
-        }
         val customer: Customer? = customerService.findById(id)
         return if (customer != null) {
             ResponseEntity(customer, HttpStatus.OK)
