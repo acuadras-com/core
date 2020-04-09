@@ -9,7 +9,7 @@ import java.util.*
 import javax.validation.constraints.Size
 
 @Document
-class Shop(
+data class Shop(
         var name: String,
         var phone: String,
         @field:Size(min = 1) var categories: List<String>
