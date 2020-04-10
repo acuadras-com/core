@@ -11,11 +11,11 @@ import javax.validation.constraints.Size
 @Document
 data class Shop(
         var name: String,
-        var phone: String,
-        @field:Size(min = 1) var categories: List<String>
+        var phone: String
 ) : DisableableEntity, AuditableEntity {
     @Id
     var id: String? = null
+    var categories: List<String>? = null
     var photoUrl: String? = null
     var location: GeoJsonPoint? = null
     var demographics: Demographic? = null
