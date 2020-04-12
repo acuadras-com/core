@@ -19,6 +19,6 @@ class Conversation(
     var id: String? = null
 
     override var disabled = false
-    override var createdDate: Date = Date()
-    override var updatedDate: Date? = null
+    override var createdAt: Date = Date()
+    override var updatedAt: Date? = null
 }

@@ -1,20 +1,26 @@
 package com.tutendero.api.service.impl
 
+import com.tutendero.api.model.Customer
 import com.tutendero.api.model.Shop
 import com.tutendero.api.repository.ShopRepository
 import com.tutendero.api.service.ShopService
 import com.tutendero.email.service.EmailService
 import org.springframework.data.geo.Distance
 import org.springframework.data.geo.Point
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ShopServiceImpl(private val shopRepository: ShopRepository,
-                      private val emailService: EmailService) : ShopService {
+class ShopServiceImpl(
+        private val shopRepository: ShopRepository,
+        private val emailService: EmailService
+) : ShopService {
+
     override fun create(shop: Shop): Shop? {
         if (shop.id == null) {
-            shop.createdDate = Date()
+            setLocation(shop)
+            shop.createdAt = Date()
             emailService.sendEmail("tutendero.startup@gmail.com",
                     "Nuevo Registro Shop",shop.toString())
             return shopRepository.save(shop)
@@ -24,7 +30,8 @@ class ShopServiceImpl(private val shopRepository: ShopRepository,
 
     override fun update(shop: Shop): Shop? {
         if (shop.id != null) {
-            shop.updatedDate = Date()
+            setLocation(shop)
+            shop.updatedAt = Date()
             return shopRepository.save(shop)
         }
         return null
@@ -34,7 +41,7 @@ class ShopServiceImpl(private val shopRepository: ShopRepository,
         val optionalShop = shopRepository.findById(id)
         optionalShop.ifPresent { item: Shop ->
             item.disabled = true
-            item.updatedDate = Date()
+            item.updatedAt = Date()
             shopRepository.save(item)
         }
     }
@@ -61,4 +68,10 @@ class ShopServiceImpl(private val shopRepository: ShopRepository,
         return shopRepository.findByLocationNearAndCategoriesIn(point, distance, categories)
     }
 
+    private fun setLocation(shop: Shop) {
+        shop.coordinates?.let {
+            val location = GeoJsonPoint(it[1], it[0])
+            shop.location = location
+        }
+    }
 }

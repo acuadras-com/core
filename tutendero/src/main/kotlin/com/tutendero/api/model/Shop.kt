@@ -17,11 +17,12 @@ data class Shop(
     var id: String? = null
     var categories: List<String>? = null
     var photoUrl: String? = null
+    var coordinates: Array<Double>? = null
     var location: GeoJsonPoint? = null
     var demographics: Demographic? = null
     var workingHours: List<WorkingHour>? = null
 
-    override var disabled = false
-    override var createdDate: Date = Date()
-    override var updatedDate: Date? = null
+    override var disabled = true
+    override var createdAt: Date = Date()
+    override var updatedAt: Date? = null
 }
