@@ -47,8 +47,10 @@ class CustomerServiceImpl(
 
     private fun setLocation(customer: Customer) {
         customer.coordinates?.let {
-            val location = GeoJsonPoint(it[1], it[0])
-            customer.location = location
+            if (customer.coordinates!!.size == 2) {
+                val location = GeoJsonPoint(it[1], it[0])
+                customer.location = location
+            }
         }
     }
 

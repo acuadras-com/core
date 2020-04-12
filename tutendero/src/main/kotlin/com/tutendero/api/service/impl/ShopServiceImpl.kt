@@ -70,8 +70,10 @@ class ShopServiceImpl(
 
     private fun setLocation(shop: Shop) {
         shop.coordinates?.let {
-            val location = GeoJsonPoint(it[1], it[0])
-            shop.location = location
+            if (shop.coordinates!!.size == 2) {
+                val location = GeoJsonPoint(it[1], it[0])
+                shop.location = location
+            }
         }
     }
 }
