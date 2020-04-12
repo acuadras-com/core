@@ -8,12 +8,17 @@ import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*
 
 @Document
-class Customer(
-        var demographics: Demographic
+data class Shop(
+        var name: String,
+        var phone: String
 ) : DisableableEntity, AuditableEntity {
     @Id
     var id: String? = null
+    var categories: List<String>? = null
+    var photoUrl: String? = null
     var location: GeoJsonPoint? = null
+    var demographics: Demographic? = null
+    var workingHours: List<WorkingHour>? = null
 
     override var disabled = false
     override var createdDate: Date = Date()
