@@ -3,7 +3,6 @@ package com.tutendero.api.service.impl
 import com.tutendero.api.model.Customer
 import com.tutendero.api.repository.CustomerRepository
 import com.tutendero.api.service.CustomerService
-import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.util.*
 
