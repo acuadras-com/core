@@ -3,7 +3,6 @@ package com.tutendero.api.service.impl
 import com.tutendero.api.model.Conversation
 import com.tutendero.api.repository.ConversationRepository
 import com.tutendero.api.service.ConversationService
-import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.util.*
 

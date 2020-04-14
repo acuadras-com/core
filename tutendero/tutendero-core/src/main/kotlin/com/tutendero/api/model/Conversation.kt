@@ -8,21 +8,15 @@ import org.springframework.data.mongodb.core.mapping.Field
 import java.util.*
 
 @Document
-class User(
-        var name: String,
-        var username: String,
-        var password: String,
-        var roles: List<String>
+data class Conversation(
+        @Field("customer_id")
+        var customerId: String,
+        @Field("shop_id")
+        var shopId: String,
+        var messages: List<Message>
 ) : DisableableEntity, AuditableEntity {
     @Id
     var id: String? = null
-    var phone: String? = null
-    @Field("customer_id")
-    var customerId: String? = null
-    @Field("shops_ids")
-    var shopsIds: List<String?> = mutableListOf<String>()
-    var acceptedTermsAndConditionsAt: Date? = null
-    var termsAndConditionsVersion: String? = null
 
     override var disabled = false
     override var createdDate: Date = Date()
