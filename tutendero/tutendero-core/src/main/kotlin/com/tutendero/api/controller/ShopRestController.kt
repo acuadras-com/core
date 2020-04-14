@@ -32,7 +32,7 @@ class ShopRestController(
 
     @PostMapping
     @CrossOrigin
-    fun createShop(@RequestBody shop: @Valid Shop): ResponseEntity<Shop> {
+    fun createShop(@RequestBody shop: @Valid Shop): ResponseEntity<Shop?> {
         if (shop.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
@@ -42,7 +42,7 @@ class ShopRestController(
 
     @PutMapping
     @CrossOrigin
-    fun updateShop(@RequestBody shop: @Valid Shop): ResponseEntity<Shop> {
+    fun updateShop(@RequestBody shop: @Valid Shop): ResponseEntity<Shop?> {
         if (shop.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }

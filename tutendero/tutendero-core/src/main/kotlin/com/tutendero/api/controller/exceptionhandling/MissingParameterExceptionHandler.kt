@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class MissingParameterExceptionHandler {
 
     @ExceptionHandler(value = [MethodArgumentNotValidException::class])
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleMethodArgumentNotValid(exception: MethodArgumentNotValidException): ValidationError {
         val violations = exception.bindingResult.allErrors
                 .mapNotNull { error ->
@@ -33,4 +34,5 @@ class MissingParameterExceptionHandler {
         val violation = Violation(fieldName, "must not be null")
         return ValidationError(listOf(violation))
     }
+
 }
