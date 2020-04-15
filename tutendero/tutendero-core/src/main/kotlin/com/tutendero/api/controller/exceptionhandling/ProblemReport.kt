@@ -1,5 +1,5 @@
 package com.tutendero.api.controller.exceptionhandling
 
-class ProblemReport(
+data class ProblemReport(
         val problems: List<Problem>
 )
