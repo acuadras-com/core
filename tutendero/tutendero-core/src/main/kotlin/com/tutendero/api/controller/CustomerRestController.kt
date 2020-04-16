@@ -25,7 +25,7 @@ class CustomerRestController(
 
     @PostMapping
     @CrossOrigin
-    fun createCustomer(@RequestBody customer: @Valid Customer): ResponseEntity<Customer> {
+    fun createCustomer(@RequestBody customer: @Valid Customer): ResponseEntity<Customer?> {
         if (customer.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
@@ -35,7 +35,7 @@ class CustomerRestController(
 
     @PutMapping
     @CrossOrigin
-    fun updateCustomer(@RequestBody customer: @Valid Customer): ResponseEntity<Customer> {
+    fun updateCustomer(@RequestBody customer: @Valid Customer): ResponseEntity<Customer?> {
         if (customer.id == null) {
             throw ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Foo Not Found")

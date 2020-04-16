@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ConversationServiceImpl(private val conversationRepository: ConversationRepository) : ConversationService {
+class ConversationServiceImpl(
+        private val conversationRepository: ConversationRepository
+) : ConversationService {
+
     override fun create(conversation: Conversation): Conversation? {
         if (conversation.id == null) {
-            conversation.createdDate = Date()
+            conversation.createdAt = Date()
             return conversationRepository.save(conversation)
         }
         return null
@@ -18,7 +21,7 @@ class ConversationServiceImpl(private val conversationRepository: ConversationRe
 
     override fun update(conversation: Conversation): Conversation? {
         if (conversation.id != null) {
-            conversation.updatedDate = Date()
+            conversation.updatedAt = Date()
             return conversationRepository.save(conversation)
         }
         return null
@@ -28,7 +31,7 @@ class ConversationServiceImpl(private val conversationRepository: ConversationRe
         val optionalConversation = conversationRepository.findById(id)
         optionalConversation.ifPresent { item: Conversation ->
             item.disabled = true
-            item.updatedDate = Date()
+            item.updatedAt = Date()
             conversationRepository.save(item)
         }
     }
