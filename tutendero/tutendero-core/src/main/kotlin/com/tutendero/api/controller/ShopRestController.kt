@@ -1,7 +1,7 @@
 package com.tutendero.api.controller
 
 import com.tutendero.api.controller.request.GeoNearPointAndCategoriesRequest
-import com.tutendero.api.controller.request.ListData
+import com.tutendero.api.controller.request.ListRequest
 import com.tutendero.api.model.Shop
 import com.tutendero.api.service.ShopService
 import org.springframework.data.geo.Distance
@@ -69,7 +69,7 @@ class ShopRestController(
 
     @GetMapping("/categories")
     @CrossOrigin
-    fun getShopsByCategories(@RequestBody categories: ListData): ResponseEntity<List<Shop?>> {
+    fun getShopsByCategories(@RequestBody categories: ListRequest): ResponseEntity<List<Shop?>> {
         val shops: List<Shop?> = shopService.findByCategoriesIn(categories.values)
         return ResponseEntity(shops, HttpStatus.OK)
     }
