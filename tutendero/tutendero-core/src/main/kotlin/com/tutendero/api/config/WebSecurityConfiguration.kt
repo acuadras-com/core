@@ -2,16 +2,15 @@ package com.tutendero.api.config
 
 import com.tutendero.api.security.jwt.JwtSecurityConfigurer
 import com.tutendero.api.security.jwt.JwtTokenProvider
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.password.PasswordEncoder
+
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -41,5 +40,15 @@ class WebSecurityConfiguration(
                 .and()
                 .apply(JwtSecurityConfigurer(jwtTokenProvider))
         //@formatter:on
+    }
+
+    @Throws(Exception::class)
+    override fun configure(web: WebSecurity) {
+        web.ignoring().antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**")
     }
 }
