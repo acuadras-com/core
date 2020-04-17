@@ -4,18 +4,21 @@ import com.tutendero.api.model.User
 import com.tutendero.api.repository.UserRepository
 import com.tutendero.api.service.UserService
 import com.tutendero.api.service.exception.ExistingResourceException
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
 class UserServiceImpl(
-        private val userRepository: UserRepository
+        private val userRepository: UserRepository,
+        private val passwordEncoder: PasswordEncoder
 ) : UserService {
 
     override fun create(user: User): User? {
         if (user.id == null) {
-            val existingUser : User? = userRepository.findByUsername(user.username)
-            if (existingUser == null) {
+            val existingUser : Optional<User?> = userRepository.findByUsername(user.username)
+            if (!existingUser.isPresent) {
+	            user.updatePassword(passwordEncoder.encode(user.password))
                 user.createdAt = Date()
                 return userRepository.save(user)
             } else {
@@ -48,4 +51,8 @@ class UserServiceImpl(
         return os.orElse(null)
     }
 
+    override fun findByUsername(username: String): User? {
+        val os = userRepository.findByUsername(username)
+        return os.orElse(null)
+    }
 }

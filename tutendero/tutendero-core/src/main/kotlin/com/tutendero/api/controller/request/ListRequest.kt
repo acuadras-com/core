@@ -1,5 +1,5 @@
 package com.tutendero.api.controller.request
 
-data class ListData(
+data class ListRequest(
         var values: List<String>
 )
