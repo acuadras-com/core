@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
-import javax.validation.Valid
 
 @RestController
 @RequestMapping("/auth")
@@ -47,7 +46,7 @@ class AuthController(
     }
 
     @PostMapping("/signup")
-    fun signup(@RequestBody userDto: @Valid UserDto): ResponseEntity<*> {
+    fun signup(@RequestBody userDto: UserDto): ResponseEntity<*> {
         val createdUser: User? = userService.create(userDto.toEntity())
         val userDto = createdUser!!.toDto()
         return ResponseEntity(userDto, HttpStatus.OK)
