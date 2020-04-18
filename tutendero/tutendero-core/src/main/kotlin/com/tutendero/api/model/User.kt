@@ -73,24 +73,13 @@ data class UserDto(
         var username: String,
         var password: String,
         var roles: List<String>
-) {
-
-    var disabled: Boolean = false
-    var createdAt: Date? = null
-}
+)
 
 fun UserDto.toEntity(): User {
     return User(this.name, this.username, this.password, this.roles)
 }
 
 fun User.toDto(): UserDto {
-    val userDto = UserDto(
-            this.name,
-            this.username,
-            "",
-            this.roles
+    return UserDto(this.name, this.username, "", this.roles
     )
-    userDto.disabled = this.disabled
-    userDto.createdAt = this.createdAt
-    return userDto
 }
