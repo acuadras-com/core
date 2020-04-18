@@ -80,6 +80,5 @@ fun UserDto.toEntity(): User {
 }
 
 fun User.toDto(): UserDto {
-    return UserDto(this.name, this.username, "", this.roles
-    )
+    return UserDto(this.name, this.username, "", this.roles)
 }
