@@ -21,8 +21,10 @@ data class User(
     @Id
     var id: String? = null
     var phone: String? = null
+
     @Field("customer_id")
     var customerId: String? = null
+
     @Field("shops_ids")
     var shopsIds: List<String?> = mutableListOf<String>()
     var acceptedTermsAndConditionsAt: Date? = null
@@ -41,7 +43,7 @@ data class User(
         return password
     }
 
-    fun updatePassword(password : String) {
+    fun updatePassword(password: String) {
         this.password = password
     }
 
@@ -64,4 +66,31 @@ data class User(
     override fun isEnabled(): Boolean {
         return !disabled
     }
+}
+
+data class UserDto(
+        var name: String,
+        var username: String,
+        var password: String,
+        var roles: List<String>
+) {
+
+    var disabled: Boolean = false
+    var createdAt: Date? = null
+}
+
+fun UserDto.toEntity(): User {
+    return User(this.name, this.username, this.password, this.roles)
+}
+
+fun User.toDto(): UserDto {
+    val userDto = UserDto(
+            this.name,
+            this.username,
+            "",
+            this.roles
+    )
+    userDto.disabled = this.disabled
+    userDto.createdAt = this.createdAt
+    return userDto
 }
