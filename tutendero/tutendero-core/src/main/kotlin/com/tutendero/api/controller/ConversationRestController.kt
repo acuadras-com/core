@@ -26,7 +26,7 @@ class ConversationRestController(
 
     @PostMapping
     @CrossOrigin
-    fun createConversation(@RequestBody conversation: @Valid Conversation): ResponseEntity<Conversation> {
+    fun createConversation(@RequestBody conversation: @Valid Conversation): ResponseEntity<Conversation?> {
         if (conversation.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
@@ -36,7 +36,7 @@ class ConversationRestController(
 
     @PutMapping
     @CrossOrigin
-    fun updateConversation(@RequestBody conversation: @Valid Conversation): ResponseEntity<Conversation> {
+    fun updateConversation(@RequestBody conversation: @Valid Conversation): ResponseEntity<Conversation?> {
         if (conversation.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }

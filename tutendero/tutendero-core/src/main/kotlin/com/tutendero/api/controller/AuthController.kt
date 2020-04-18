@@ -2,6 +2,9 @@ package com.tutendero.api.controller
 
 import com.tutendero.api.controller.request.AuthenticationRequest
 import com.tutendero.api.model.User
+import com.tutendero.api.model.UserDto
+import com.tutendero.api.model.toDto
+import com.tutendero.api.model.toEntity
 import com.tutendero.api.security.jwt.JwtTokenProvider
 import com.tutendero.api.service.UserService
 import org.springframework.http.HttpStatus
@@ -43,9 +46,10 @@ class AuthController(
     }
 
     @PostMapping("/signup")
-    fun signup(@RequestBody request: User): ResponseEntity<User> {
-        val user: User? = userService.create(request)
-        return ResponseEntity(user, HttpStatus.OK)
+    fun signup(@RequestBody userDto: UserDto): ResponseEntity<*> {
+        val createdUser: User? = userService.create(userDto.toEntity())
+        val userDto = createdUser!!.toDto()
+        return ResponseEntity(userDto, HttpStatus.OK)
     }
 
 }
