@@ -87,4 +87,18 @@ class ShopRestController(
         val shops: List<Shop?> = shopService.findByLocationNearAndCategoriesIn(request.point, Distance(radius.toDouble(), Metrics.KILOMETERS), request.categories)
         return ResponseEntity(shops, HttpStatus.OK)
     }
+
+    @GetMapping("/enabled")
+    @CrossOrigin
+    fun getShopsDisabledFalse(): ResponseEntity<List<Shop?>> {
+        val shops: List<Shop?> = shopService.findByDisabledFalse()
+        return ResponseEntity(shops, HttpStatus.OK)
+    }
+
+    @GetMapping("/disabled")
+    @CrossOrigin
+    fun getShopsDisabledTrue(): ResponseEntity<List<Shop?>> {
+        val shops: List<Shop?> = shopService.findByDisabledTrue()
+        return ResponseEntity(shops, HttpStatus.OK)
+    }
 }
