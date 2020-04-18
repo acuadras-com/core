@@ -27,7 +27,7 @@ class UserRestController(
 
     @PostMapping
     @CrossOrigin
-    fun createUser(@RequestBody user: @Valid User): ResponseEntity<User> {
+    fun createUser(@RequestBody user: @Valid User): ResponseEntity<User?> {
         if (user.id != null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
@@ -37,7 +37,7 @@ class UserRestController(
 
     @PutMapping
     @CrossOrigin
-    fun updateUser(@RequestBody user: @Valid User): ResponseEntity<User> {
+    fun updateUser(@RequestBody user: @Valid User): ResponseEntity<User?> {
         if (user.id == null) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }

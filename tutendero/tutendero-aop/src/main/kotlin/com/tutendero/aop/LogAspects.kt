@@ -23,4 +23,14 @@ class LogAspects {
         log.info("finishing $signature result: $result")
         return result
     }
+
+    @Around("execution(* com.tutendero.api.controller.exceptionhandling.*.handle*(..))")
+    fun logExceptions(joinPoint: ProceedingJoinPoint): Any {
+        val signature = joinPoint.signature.toShortString()
+        val request = joinPoint.args.joinToString("/ ")
+        log.info("starting $signature request:$request ")
+        val result = joinPoint.proceed()
+        log.info("finishing $signature result: $result")
+        return result
+    }
 }
