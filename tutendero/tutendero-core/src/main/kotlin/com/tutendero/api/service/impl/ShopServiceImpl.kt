@@ -61,16 +61,16 @@ class ShopServiceImpl(
     }
 
     override fun findByCategoriesIn(categories: List<String>): List<Shop?> {
-        return shopRepository.findByCategoriesIn(categories)
+        return shopRepository.findByDisabledFalseAndCategoriesIn(categories)
     }
 
 
     override fun findByLocationNear(point: Point, distance: Distance): List<Shop?> {
-        return shopRepository.findByLocationNear(point, distance)
+        return shopRepository.findByDisabledFalseAndLocationNear(point, distance)
     }
 
     override fun findByLocationNearAndCategoriesIn(point: Point, distance: Distance, categories: List<String>): List<Shop?> {
-        return shopRepository.findByLocationNearAndCategoriesIn(point, distance, categories)
+        return shopRepository.findByDisabledFalseAndLocationNearAndCategoriesIn(point, distance, categories)
     }
 
     private fun setLocation(shop: Shop) {
@@ -80,5 +80,12 @@ class ShopServiceImpl(
                 shop.location = location
             }
         }
+    }
+
+    override fun findByDisabledTrue(): List<Shop?> {
+        return shopRepository.findByDisabledTrue()
+    }
+    override fun findByDisabledFalse(): List<Shop?> {
+        return shopRepository.findByDisabledFalse()
     }
 }
