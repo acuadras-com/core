@@ -13,4 +13,6 @@ interface ShopService {
     fun findByCategoriesIn(categories : List<String>): List<Shop?>
     fun findByLocationNear(point: Point, distance: Distance): List<Shop?>
     fun findByLocationNearAndCategoriesIn(point: Point, distance: Distance, categories: List<String>): List<Shop?>
+    fun findByDisabledTrue(): List<Shop?>
+    fun findByDisabledFalse(): List<Shop?>
 }
