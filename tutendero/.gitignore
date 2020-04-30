@@ -31,6 +31,8 @@ out/
 ### VS Code ###
 .vscode/
 
+application_p.properties
+
 
 # OS generated files #
 ######################
