@@ -23,7 +23,7 @@ class ShopServiceImpl(
             if (existingShops.isEmpty()) {
                 setLocation(shop)
                 shop.createdAt = Date()
-                emailService.sendEmail("tutendero.startup@gmail.com",
+                emailService.sendSimpleEmail("tutendero.startup@gmail.com",
                         "Nuevo Registro Shop", shop.toString())
                 return shopRepository.save(shop)
             } else {

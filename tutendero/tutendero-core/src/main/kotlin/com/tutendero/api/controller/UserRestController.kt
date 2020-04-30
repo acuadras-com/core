@@ -2,9 +2,12 @@ package com.tutendero.api.controller
 
 import com.tutendero.api.model.User
 import com.tutendero.api.service.UserService
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.env.Environment
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -12,6 +15,7 @@ import javax.validation.Valid
 class UserRestController(
         private val userService: UserService
 ) {
+
 
     @GetMapping("/{id}")
     @CrossOrigin
@@ -53,5 +57,17 @@ class UserRestController(
         }
         userService.delete(id)
         return ResponseEntity(HttpStatus.OK)
+    }
+
+    @GetMapping("/confirm/{location}")
+    fun confirmUser(@PathVariable location: String): ResponseEntity<String> {
+
+        val id = String(Base64.getUrlDecoder().decode(location))
+        val user : User? = userService.findById(id)
+        if (user != null && !user.confirmed) {
+            user.confirmed = true
+            userService.update(user)
+        }
+        return ResponseEntity<String>("Correo confirmado!", HttpStatus.OK)
     }
 }

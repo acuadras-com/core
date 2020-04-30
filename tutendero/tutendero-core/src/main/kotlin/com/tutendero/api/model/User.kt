@@ -29,7 +29,7 @@ data class User(
     var shopsIds: List<String?> = mutableListOf<String>()
     var acceptedTermsAndConditionsAt: Date? = null
     var termsAndConditionsVersion: String? = null
-    var token: String? = null
+    var confirmed = false
 
     override var disabled = false
     override var createdAt: Date = Date()

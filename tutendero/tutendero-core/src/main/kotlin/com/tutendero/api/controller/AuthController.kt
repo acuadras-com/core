@@ -48,8 +48,8 @@ class AuthController(
     @PostMapping("/signup")
     fun signup(@RequestBody userDto: UserDto): ResponseEntity<*> {
         val createdUser: User? = userService.create(userDto.toEntity())
-        val userDto = createdUser!!.toDto()
-        return ResponseEntity(userDto, HttpStatus.OK)
+        val newDto = createdUser!!.toDto()
+        return ResponseEntity(newDto, HttpStatus.OK)
     }
 
 }

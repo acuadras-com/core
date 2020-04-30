@@ -18,7 +18,7 @@ class EmailController(
     @PostMapping
     fun sendEmail(@RequestBody emailSendRequest: @Valid EmailSendRequest) {
         emailService
-                .sendEmail(emailSendRequest.to, emailSendRequest.subject,
+                .sendSimpleEmail(emailSendRequest.to, emailSendRequest.subject,
                         emailSendRequest.text)
     }
 }
